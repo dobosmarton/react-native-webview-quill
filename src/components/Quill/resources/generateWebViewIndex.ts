@@ -49,14 +49,8 @@ export function generateWebViewIndex(
 
           .quill-wrapper .ql-container.ql-snow,
           .quill-wrapper .ql-toolbar.ql-snow + .ql-container.ql-snow {
-            border: 2px solid rgba(0,0,0,0.12);
-            border-radius: 4px;
+            border: 0;
             transition: all 0.2s;
-          }
-
-          .quill-wrapper .ql-container.ql-snow.quill-focus,
-          .quill-wrapper .ql-toolbar.ql-snow + .ql-container.ql-snow.quill-focus {
-            border-color: #00b050; 
           }
 
           .quill-wrapper .ql-toolbar.ql-snow {
@@ -140,7 +134,8 @@ export function generateWebViewIndex(
 
           /* Send a message when the text changes */
           editor.on('text-change', function() {
-            sendMessage(${EventType.CONTENT_CHANGE}, editor.getContents());
+            const html = editor.root.innerHTML;
+            sendMessage(${EventType.CONTENT_CHANGE}, editor.getContents(), html);
           });
 
           editor.root.addEventListener('focus', () => onFocus(editor));
