@@ -31,10 +31,12 @@ export function generateWebViewIndex(
             display: flex;
             flex-direction: column;
             height: 100%;
+            overflow: hidden;
           }
 
           .quill-editor {
             flex: 1 1 auto;
+            overflow-y: auto;
           }
 
           .quill-wrapper .ql-container {

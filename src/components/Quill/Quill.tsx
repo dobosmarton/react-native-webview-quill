@@ -76,6 +76,8 @@ export class Quill extends React.Component<IProps, IState> {
             onMessage={this.onMessage}
             ref={this.registerWebView}
             useWebKit={true}
+            overScrollMode="never"
+            scrollEnabled={false}
             scalesPageToFit={false}
             source={{ html: this.state.html }}
             style={this.webViewStyle}
