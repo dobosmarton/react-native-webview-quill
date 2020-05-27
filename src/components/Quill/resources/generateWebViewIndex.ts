@@ -135,7 +135,7 @@ export function generateWebViewIndex(
           /* Send a message when the text changes */
           editor.on('text-change', function() {
             const html = editor.root.innerHTML;
-            sendMessage(${EventType.CONTENT_CHANGE}, editor.getContents(), html);
+            sendMessage(${EventType.CONTENT_CHANGE}, { content: editor.getContents(), html });
           });
 
           editor.root.addEventListener('focus', () => onFocus(editor));
