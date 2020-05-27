@@ -14,7 +14,7 @@ export function generateWebViewIndex(
   content: DeltaStatic | undefined,
   options: QuillOptionsStatic
 ) {
-  return encodeURIComponent(/*html*/ `
+  return `
     <!DOCTYPE html>
     <html>
       <head>
@@ -150,5 +150,5 @@ export function generateWebViewIndex(
         </script>
       </body>
     </html>
-  `);
+  `;
 }
