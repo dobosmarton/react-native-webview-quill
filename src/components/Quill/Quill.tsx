@@ -11,9 +11,10 @@ import { generateWebViewIndex } from './resources/generateWebViewIndex';
 interface IProps {
   accessibilityLabel?: string;
   containerStyle?: ViewStyle;
-  content?: DeltaStatic;
+  content?: DeltaStatic | string;
   onContentChange?: (content: DeltaStatic) => any;
   options?: QuillOptionsStatic;
+  editable?: boolean;
 }
 
 interface IState {
@@ -79,8 +80,12 @@ export class Quill extends React.Component<IProps, IState> {
             overScrollMode="never"
             scrollEnabled={false}
             scalesPageToFit={false}
+            hideKeyboardAccessoryView
             source={{ html: this.state.html }}
             style={this.webViewStyle}
+            keyboardDisplayRequiresUserAction={false}
+            hideKeyboardAccessoryView
+            autoFocus={this.props.editable}
           />
         )}
       </View>
@@ -102,7 +107,12 @@ export class Quill extends React.Component<IProps, IState> {
     };
 
     this.setState({
-      html: generateWebViewIndex({ script, styleSheet }, this.props.content, options),
+      html: generateWebViewIndex(
+        { script, styleSheet },
+        this.props.content,
+        options,
+        this.props.editable
+      ),
     });
   }
 

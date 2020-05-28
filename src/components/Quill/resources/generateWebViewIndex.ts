@@ -11,8 +11,9 @@ import { IResources } from '../interfaces/IResources';
 
 export function generateWebViewIndex(
   resources: IResources,
-  content: DeltaStatic | undefined,
-  options: QuillOptionsStatic
+  content: DeltaStatic | string | undefined,
+  options: QuillOptionsStatic,
+  editable: boolean
 ) {
   return `
     <!DOCTYPE html>
@@ -29,19 +30,21 @@ export function generateWebViewIndex(
 
           .quill-wrapper {
             display: flex;
-            flex-direction: column;
             height: 100%;
             overflow: hidden;
+            position: relative;
           }
 
           .quill-editor {
-            flex: 1 1 auto;
             overflow-y: auto;
+            height: 100%;
+            width: 100%;
+            padding-bottom: ${editable ? '52px' : 0};
           }
-
+  
           .quill-wrapper .ql-container {
-            height: auto;
-            font-size: 16px;
+            padding: 11px; 
+            transition: all 0.2s;
           }
 
           .quill-wrapper .ql-editor {
@@ -57,7 +60,14 @@ export function generateWebViewIndex(
 
           .quill-wrapper .ql-toolbar.ql-snow {
             border: 0;
-            padding-left: 0px;
+            border-top: 1px solid #ccc;
+            padding-left: 8px;
+            padding-right: 8px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background-color: white;
+            z-index: 99;
           }
 
           .quill-wrapper .ql-editor.ql-blank::before {
@@ -75,7 +85,6 @@ export function generateWebViewIndex(
       <body>
         <div class="quill-wrapper">
           <div class="quill-editor"></div>
-          <div id="toolbar"></div>
         </div>
 
         <script>
@@ -133,7 +142,24 @@ export function generateWebViewIndex(
           const editor = new Quill('.quill-editor', ${JSON.stringify(options)});
 
           /* Set the initial content */
-          editor.setContents(${JSON.stringify(content)})
+          
+          if (${typeof content === 'string'}) {
+            editor.clipboard.dangerouslyPasteHTML(0, ${JSON.stringify(content)});
+           
+          } else {
+            editor.setContents(${JSON.stringify(content)})
+          }
+
+          if (${editable}) {
+            editor.enable();
+            setTimeout(() => {
+              editor.setSelection(editor.scroll.length(), 0);
+            }, 120);
+            
+          } else {
+            editor.disable();
+          }
+
 
           /* Send a message when the text changes */
           editor.on('text-change', function() {
