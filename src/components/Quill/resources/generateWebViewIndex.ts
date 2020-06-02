@@ -39,12 +39,13 @@ export function generateWebViewIndex(
             overflow-y: auto;
             height: 100%;
             width: 100%;
-            padding-bottom: ${editable ? '52px' : 0};
+           
           }
   
           .quill-wrapper .ql-container {
             padding: 11px; 
             transition: all 0.2s;
+            padding-bottom: ${editable ? '52px' : 0};
           }
 
           .quill-wrapper .ql-editor {
@@ -60,12 +61,15 @@ export function generateWebViewIndex(
 
           .quill-wrapper .ql-toolbar.ql-snow {
             border: 0;
+            display: flex;
+            align-items: center;
             border-top: 1px solid #ccc;
             padding-left: 8px;
             padding-right: 8px;
             position: absolute;
             bottom: 0;
             width: 100%;
+            height: 44px;
             background-color: white;
             z-index: 99;
           }
