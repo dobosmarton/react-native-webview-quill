@@ -157,7 +157,7 @@ export function generateWebViewIndex(
             }, 120);
             
           } else {
-            editor.disable();
+            editor.enable(false);
           }
 
 
