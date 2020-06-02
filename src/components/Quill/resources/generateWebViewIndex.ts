@@ -157,6 +157,7 @@ export function generateWebViewIndex(
             }, 120);
             
           } else {
+            editor.root.blur()
             editor.enable(false);
           }
 
