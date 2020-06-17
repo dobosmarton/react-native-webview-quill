@@ -80,7 +80,6 @@ export class Quill extends React.Component<IProps, IState> {
             overScrollMode="never"
             scrollEnabled={false}
             scalesPageToFit={false}
-            hideKeyboardAccessoryView
             source={{ html: this.state.html }}
             style={this.webViewStyle}
             keyboardDisplayRequiresUserAction={false}
